@@ -1,7 +1,7 @@
 #python -i main.py
 
 animalLst = []
-animalLst_with_more_than_4_trials = []
+resultanimals = []
 #input animal
 k = 0
 o = 0
@@ -10,14 +10,16 @@ while(True):
     animals = int(input("input animal list or 0 to end: "))
     if animals == 0:
         break;
-    if animals < k or animals > k:
-        k = animals
-        animalLst.append(k)
-    elif animals == k:
-        o += 1
-        if o > 4:
-            animalLst_with_more_than_4_trials.append(animals)
+    animalLst.append(animals)
+
+for x in animalLst:
+    k = x
+    if k not in resultanimals:
+        resultanimals.append(k)
+    elif k in resultanimals:
         pass
+
+
 #input duration
 
 
@@ -61,12 +63,12 @@ while(True):
  #   userinput = input("Press 1 to display list of animals. Press 2 to display avg duration ")
 
 print("Animal        Avg Duration           Avg Distance")
-for (a, b, c) in zip(animalLst, durationlst, distancelst):
+for (a, b, c) in zip(resultanimals, durationlst, distancelst):
 
     print(str(a) + "              " + str(b) + "                       " + str(c))
 
-d_duration = dict(zip(animalLst, durationlst))
-d_distance = dict(zip(animalLst, distancelst))
+d_duration = dict(zip(resultanimals, durationlst))
+d_distance = dict(zip(resultanimals, distancelst))
 
 #some tools
 def maxDuration(d_duration):
