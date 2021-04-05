@@ -1,4 +1,7 @@
-#python -i main.py
+#python -i projectv1.py
+
+from collections import defaultdict
+from itertools import chain
 
 animalLst = []
 resultanimals = []
@@ -31,13 +34,29 @@ while(True):
     duration = float(input("input duration or 0 to end: "))
     if duration == 0:
         break;
-    if x <= 4:
-        result += duration
-    if x == 4:
-        result = result / 4
-        durationlst.append(result)
-        x = 0
-        result = 0
+    #if x <= 4:
+     #   result += duration
+    #if x == 4:
+    #    result = result / 4
+     #   durationlst.append(result)
+    #    x = 0
+     #   result = 0
+    durationlst.append(duration)
+
+#newT = list(zip(animalLst, list(durationlst)))
+
+#for avg dur
+
+res = defaultdict(list)
+
+for ani, dur in zip(animalLst, durationlst):
+    res[ani].append(dur)
+
+res2 = defaultdict(list)
+for key1, value1 in res.items():
+    intVal1 = sum(value1)
+    intVal1 = intVal1 / 4
+    res2[key1].append(intVal1)
 
 
 
@@ -50,25 +69,49 @@ while(True):
     distance = float(input("input distance or 0 to end: "))
     if distance == 0:
         break;
-    if i <= 4:
-        result2 += distance
-    if i == 4:
-        result2 = result2 / 4
-        distancelst.append(result2)
-        i = 0
-        result2 = 0
-#interface
+    #if i <= 4:
+    #    result2 += distance
+    #if i == 4:
+    #    result2 = result2 / 4
+    #    distancelst.append(result2)
+    #    i = 0
+    #    result2 = 0
+    distancelst.append(distance)
 
-#while(True):
- #   userinput = input("Press 1 to display list of animals. Press 2 to display avg duration ")
 
-print("Animal        Avg Duration           Avg Distance")
-for (a, b, c) in zip(resultanimals, durationlst, distancelst):
+#for avg dist
+des = defaultdict(list)
 
-    print(str(a) + "              " + str(b) + "                       " + str(c))
+for ani2, dist in zip(animalLst, distancelst):
+    des[ani2].append(dist)
 
-d_duration = dict(zip(resultanimals, durationlst))
-d_distance = dict(zip(resultanimals, distancelst))
+des2 = defaultdict(list)
+for key2, value2 in des.items():
+    intVal2 = sum(value2)
+    intVal2 = intVal2 / 4
+    des2[key2].append(intVal2)
+
+print("Animals              Avg Duration          Avg Distance")
+for printkey1, printkey2 in zip(res2, des2):
+    print(str(printkey1) + "                     " + str(res2[printkey2])[1:-1] + "                 " + str(des2[printkey2])[1:-1])
+
+lstResVal = []
+lstResAni = []
+for x,y in res2.items():
+    lstResAni.append(x)
+    lstResVal.append(y)
+
+lstResVal2 = list(chain.from_iterable(lstResVal))
+#lstResAni2 = list(chain.from_iterable(lstResAni))
+
+lstDesVal = []
+for x, y in des2.items():
+    lstDesVal.append(y)
+
+lstDesVal2 = list(chain.from_iterable(lstDesVal))
+
+d_duration = dict(zip(lstResAni, lstResVal2))
+d_distance = dict(zip(lstResAni, lstDesVal2))
 
 #some tools
 def maxDuration(d_duration):
@@ -126,4 +169,7 @@ print(minDuration(d_duration))
 
 #print(max(d_duration, key=d_duration.get))
 #print(max(d_distance, key=d_distance.get))
+
+
+
 
